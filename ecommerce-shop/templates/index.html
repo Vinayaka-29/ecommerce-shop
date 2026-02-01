@@ -3,206 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Commerce Shop - Indian Fashion</title>
+    <title>E-Commerce Shop - Fashion & Electronics</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f4f4f4;
-        }
-
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        header .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header h1 {
-            font-size: 32px;
-            margin-bottom: 5px;
-        }
-
-        .cart-link {
-            background: white;
-            color: #667eea;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .cart-link:hover {
-            background: #667eea;
-            color: white;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .nav-section {
-            background: white;
-            padding: 20px 0;
-            margin-bottom: 20px;
-            box-shadow: 0 1px 5px rgba(0,0,0,0.05);
-        }
-
-        .nav-section .container {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .nav-link {
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            background: #f0f0f0;
-            color: #667eea;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            background: #667eea;
-            color: white;
-        }
-
-        .products-section {
-            margin-bottom: 50px;
-        }
-
-        .section-title {
-            font-size: 28px;
-            color: #667eea;
-            margin-bottom: 30px;
-            text-align: center;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 250px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 80px;
-        }
-
-        .product-info {
-            padding: 20px;
-        }
-
-        .product-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .product-desc {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 15px;
-            min-height: 40px;
-        }
-
-        .price-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .price {
-            font-size: 24px;
-            font-weight: bold;
-            color: #764ba2;
-        }
-
-        .add-to-cart-btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .add-to-cart-btn:hover {
-            transform: scale(1.05);
-        }
-
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: 50px;
-        }
-
-        @media (max-width: 768px) {
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: #f4f4f4; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        header .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { font-size: 32px; margin-bottom: 5px; }
+        .cart-link { background: white; color: #667eea; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        .cart-link:hover { background: #667eea; color: white; border: 2px solid white; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .nav-section { background: white; padding: 20px 0; margin-bottom: 20px; box-shadow: 0 1px 5px rgba(0,0,0,0.05); }
+        .nav-section .container { display: flex; gap: 20px; flex-wrap: wrap; }
+        .nav-link { padding: 8px 15px; border-radius: 5px; cursor: pointer; background: #f0f0f0; color: #667eea; font-weight: bold; transition: all 0.3s; border: none; font-size: 14px; }
+        .nav-link:hover, .nav-link.active { background: #667eea; color: white; }
+        .products-section { margin-bottom: 50px; }
+        .section-title { font-size: 28px; color: #667eea; margin-bottom: 30px; text-align: center; padding: 20px; background: white; border-radius: 8px; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+        .product-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+        .product-image { width: 100%; height: 250px; object-fit: cover; }
+        .product-info { padding: 20px; }
+        .product-title { font-size: 18px; font-weight: bold; color: #333; margin-bottom: 10px; }
+        .product-desc { font-size: 14px; color: #666; margin-bottom: 15px; min-height: 40px; }
+        .price-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .price { font-size: 24px; font-weight: bold; color: #764ba2; }
+        .add-to-cart-btn { width: 100%; padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; transition: transform 0.3s; }
+        .add-to-cart-btn:hover { transform: scale(1.05); }
+        footer { background: #333; color: white; text-align: center; padding: 20px; margin-top: 50px; }
+        @media (max-width: 768px) { .products-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); } }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
             <div>
-                <h1>🛍️ Indian Fashion Store</h1>
-                <p>Quality Clothing for Men & Women</p>
+                <h1>🛍️ Indian E-Commerce Store</h1>
+                <p>Fashion & Electronics - Quality Products</p>
             </div>
             <a href="/cart.html" class="cart-link">📋 View Cart</a>
         </div>
@@ -211,147 +48,59 @@
     <div class="nav-section">
         <div class="container">
             <button class="nav-link active" onclick="filterCategory('all')">All Products</button>
-            <button class="nav-link" onclick="filterCategory('women')">👗 Women</button>
-            <button class="nav-link" onclick="filterCategory('men')">👔 Men</button>
+            <button class="nav-link" onclick="filterCategory('women')">👗 Women's Fashion</button>
+            <button class="nav-link" onclick="filterCategory('men')">👔 Men's Fashion</button>
+            <button class="nav-link" onclick="filterCategory('electronics')">📱 Electronics</button>
         </div>
     </div>
 
     <div class="container">
         <div class="products-section">
-            <div class="section-title">👕 Trending Dresses & Clothing</div>
-            <div class="products-grid" id="productsGrid">
-                <!-- Products will be dynamically loaded here -->
-            </div>
+            <div class="section-title">🛒 Trending Products</div>
+            <div class="products-grid" id="productsGrid"></div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2024 Indian Fashion Store. All rights reserved. Delivering quality fashion to India.</p>
+        <p>&copy; 2024 Indian E-Commerce Store. All rights reserved. Delivering quality to India.</p>
     </footer>
 
     <script>
-        // Indian clothing products with prices in INR
         const products = [
-            {
-                id: 1,
-                title: "Cotton Saree",
-                category: "women",
-                price: 1299,
-                emoji: "🔘",
-                desc: "Traditional cotton saree with beautiful patterns"
-            },
-            {
-                id: 2,
-                title: "Silk Kurti",
-                category: "women",
-                price: 899,
-                emoji: "👗",
-                desc: "Elegant silk kurti perfect for casual wear"
-            },
-            {
-                id: 3,
-                title: "Designer Salwar Suit",
-                category: "women",
-                price: 1599,
-                emoji: "👘",
-                desc: "Stunning designer salwar suit with embroidery"
-            },
-            {
-                id: 4,
-                title: "Cotton Kurta",
-                category: "women",
-                price: 749,
-                emoji: "🪑",
-                desc: "Comfortable cotton kurta for everyday wear"
-            },
-            {
-                id: 5,
-                title: "Ethnic Lehenga",
-                category: "women",
-                price: 2499,
-                emoji: "👘",
-                desc: "Beautiful lehenga for weddings and celebrations"
-            },
-            {
-                id: 6,
-                title: "Printed Saree",
-                category: "women",
-                price: 1099,
-                emoji: "🔘",
-                desc: "Colorful printed saree for casual occasions"
-            },
-            {
-                id: 7,
-                title: "Cotton Dhoti",
-                category: "men",
-                price: 599,
-                emoji: "👕",
-                desc: "Traditional cotton dhoti for all occasions"
-            },
-            {
-                id: 8,
-                title: "Linen Kurta",
-                category: "men",
-                price: 699,
-                emoji: "👘",
-                desc: "Premium linen kurta for summer comfort"
-            },
-            {
-                id: 9,
-                title: "Silk Sherwani",
-                category: "men",
-                price: 4999,
-                emoji: "💪",
-                desc: "Elegant sherwani for weddings and formal events"
-            },
-            {
-                id: 10,
-                title: "Cotton Angavastram",
-                category: "men",
-                price: 499,
-                emoji: "👗",
-                desc: "Traditional angavastram for cultural wear"
-            },
-            {
-                id: 11,
-                title: "Designer Lehenga Choli",
-                category: "women",
-                price: 3499,
-                emoji: "👘",
-                desc: "Premium designer lehenga choli with stone work"
-            },
-            {
-                id: 12,
-                title: "Benarasi Saree",
-                category: "women",
-                price: 2999,
-                emoji: "🔘",
-                desc: "Authentic Benarasi saree with gold zari work"
-            }
+            // Women's Fashion
+            { id: 1, title: "Cotton Saree", category: "women", price: 1299, image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400", desc: "Traditional cotton saree with beautiful patterns" },
+            { id: 2, title: "Silk Kurti", category: "women", price: 899, image: "https://images.unsplash.com/photo-1583391733956-6c78276477e9?w=400", desc: "Elegant silk kurti perfect for casual wear" },
+            { id: 3, title: "Designer Salwar Suit", category: "women", price: 1599, image: "https://images.unsplash.com/photo-1610030469536-502596c6bc9e?w=400", desc: "Stunning designer salwar suit with embroidery" },
+            { id: 4, title: "Ethnic Lehenga", category: "women", price: 2499, image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400", desc: "Beautiful lehenga for weddings and celebrations" },
+            { id: 5, title: "Benarasi Saree", category: "women", price: 2999, image: "https://images.unsplash.com/photo-1610030469964-74c1fc85bf81?w=400", desc: "Authentic Benarasi saree with gold zari work" },
+            // Men's Fashion
+            { id: 6, title: "Linen Kurta", category: "men", price: 699, image: "https://images.unsplash.com/photo-1626497764746-6dc36546b388?w=400", desc: "Premium linen kurta for summer comfort" },
+            { id: 7, title: "Silk Sherwani", category: "men", price: 4999, image: "https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?w=400", desc: "Elegant sherwani for weddings and formal events" },
+            { id: 8, title: "Cotton Dhoti", category: "men", price: 599, image: "https://images.unsplash.com/photo-1603252109303-2751441dd157?w=400", desc: "Traditional cotton dhoti for all occasions" },
+            // Electronics
+            { id: 9, title: "Smartphone", category: "electronics", price: 15999, image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400", desc: "Latest smartphone with advanced features" },
+            { id: 10, title: "Laptop", category: "electronics", price: 45999, image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400", desc: "High-performance laptop for work and gaming" },
+            { id: 11, title: "Wireless Headphones", category: "electronics", price: 2999, image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400", desc: "Premium wireless headphones with noise cancellation" },
+            { id: 12, title: "Smartwatch", category: "electronics", price: 4999, image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400", desc: "Track your fitness and stay connected" },
+            { id: 13, title: "Tablet", category: "electronics", price: 18999, image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400", desc: "Powerful tablet for work and entertainment" },
+            { id: 14, title: "Bluetooth Speaker", category: "electronics", price: 1999, image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400", desc: "Portable speaker with amazing sound quality" }
         ];
 
         let currentCategory = 'all';
 
-        // Display products
         function displayProducts(category = 'all') {
             const grid = document.getElementById('productsGrid');
             grid.innerHTML = '';
-            
-            const filtered = category === 'all' 
-                ? products 
-                : products.filter(p => p.category === category);
-            
+            const filtered = category === 'all' ? products : products.filter(p => p.category === category);
             filtered.forEach(product => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
-                    <div class="product-image">${product.emoji}</div>
+                    <img src="${product.image}" alt="${product.title}" class="product-image">
                     <div class="product-info">
                         <div class="product-title">${product.title}</div>
                         <div class="product-desc">${product.desc}</div>
-                        <div class="price-section">
-                            <span class="price">₹${product.price}</span>
-                        </div>
+                        <div class="price-section"><span class="price">₹${product.price}</span></div>
                         <button class="add-to-cart-btn" onclick="addToCart(${product.id})">Add to Cart</button>
                     </div>
                 `;
@@ -359,45 +108,28 @@
             });
         }
 
-        // Filter by category
         function filterCategory(category) {
             currentCategory = category;
             displayProducts(category);
-            
-            // Update active button
-            document.querySelectorAll('.nav-link').forEach(btn => {
-                btn.classList.remove('active');
-            });
+            document.querySelectorAll('.nav-link').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
         }
 
-        // Add to cart
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
             if (!product) return;
-            
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             const existingItem = cart.find(item => item.id === productId);
-            
             if (existingItem) {
                 existingItem.quantity += 1;
             } else {
-                cart.push({
-                    id: product.id,
-                    title: product.title,
-                    price: product.price,
-                    quantity: 1
-                });
+                cart.push({ id: product.id, title: product.title, price: product.price, quantity: 1 });
             }
-            
             localStorage.setItem('cart', JSON.stringify(cart));
-            alert('🙋 ' + product.title + ' added to cart!');
+            alert('✅ ' + product.title + ' added to cart!');
         }
 
-        // Display all products on page load
-        window.addEventListener('DOMContentLoaded', () => {
-            displayProducts();
-        });
+        window.addEventListener('DOMContentLoaded', () => { displayProducts(); });
     </script>
 </body>
 </html>
