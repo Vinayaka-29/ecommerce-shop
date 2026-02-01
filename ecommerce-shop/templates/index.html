@@ -3,415 +3,401 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Commerce Shop - Quality Products</title>
+    <title>E-Commerce Shop - Indian Fashion</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
+            background: #f4f4f4;
         }
-        
+
         header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 20px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 30px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        
+
         header .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        
+
         header h1 {
             font-size: 32px;
             margin-bottom: 5px;
         }
-        
-        header p {
-            font-size: 14px;
-            opacity: 0.9;
+
+        .cart-link {
+            background: white;
+            color: #667eea;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
         }
-        
+
+        .cart-link:hover {
+            background: #667eea;
+            color: white;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-        
-        .hero {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 60px 20px;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .hero h2 {
-            font-size: 48px;
+
+        .nav-section {
+            background: white;
+            padding: 20px 0;
             margin-bottom: 20px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.05);
         }
-        
-        .hero p {
-            font-size: 20px;
-            margin-bottom: 30px;
-            opacity: 0.95;
+
+        .nav-section .container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
         }
-        
-        .cta-button {
-            display: inline-block;
-            background: white;
-            color: #f5576c;
-            padding: 12px 30px;
+
+        .nav-link {
+            padding: 8px 15px;
             border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-        
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin: 60px 0;
-        }
-        
-        .feature-card {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-        }
-        
-        .feature-icon {
-            font-size: 40px;
-            margin-bottom: 15px;
-        }
-        
-        .feature-card h3 {
-            margin-bottom: 10px;
+            cursor: pointer;
+            background: #f0f0f0;
             color: #667eea;
+            font-weight: bold;
+            transition: all 0.3s;
         }
-        
-        .feature-card p {
-            color: #666;
-            font-size: 14px;
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #667eea;
+            color: white;
         }
-        
+
         .products-section {
-            margin: 60px 0;
+            margin-bottom: 50px;
         }
-        
-        .products-section h2 {
+
+        .section-title {
+            font-size: 28px;
+            color: #667eea;
+            margin-bottom: 30px;
             text-align: center;
-            font-size: 36px;
-            margin-bottom: 40px;
-            color: #333;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
         }
-        
+
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
         }
-        
+
         .product-card {
             background: white;
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
         }
-        
+
         .product-card:hover {
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-            transform: translateY(-3px);
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
-        
+
         .product-image {
             width: 100%;
-            height: 200px;
+            height: 250px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 50px;
             color: white;
+            font-size: 80px;
         }
-        
+
         .product-info {
             padding: 20px;
         }
-        
-        .product-info h3 {
-            margin-bottom: 10px;
+
+        .product-title {
             font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
         }
-        
+
+        .product-desc {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+            min-height: 40px;
+        }
+
+        .price-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
         .price {
             font-size: 24px;
-            color: #f5576c;
             font-weight: bold;
-            margin: 10px 0;
+            color: #764ba2;
         }
-        
-        .add-to-cart {
-            background: #667eea;
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 10px 20px;
             border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
             font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
         }
-        
-        .add-to-cart:hover {
-            background: #764ba2;
+
+        .add-to-cart-btn:hover {
             transform: scale(1.05);
         }
-        
+
         footer {
             background: #333;
             color: white;
             text-align: center;
-            padding: 30px 20px;
-            margin-top: 60px;
-        }
-        
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 40px 0;
-            text-align: center;
-        }
-        
-        .stat {
             padding: 20px;
-            background: #f8f9fa;
-            border-radius: 8px;
+            margin-top: 50px;
         }
-        
-        .stat-number {
-            font-size: 32px;
-            font-weight: bold;
-            color: #667eea;
-        }
-        
-        .stat-label {
-            color: #666;
-            margin-top: 5px;
+
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
         }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>🛍️ E-Commerce Shop</h1>
-            <p>Quality Products at Best Prices</p>
+            <div>
+                <h1>🛍️ Indian Fashion Store</h1>
+                <p>Quality Clothing for Men & Women</p>
+            </div>
+            <a href="/cart.html" class="cart-link">📋 View Cart</a>
         </div>
     </header>
-    
-    <div class="hero">
+
+    <div class="nav-section">
         <div class="container">
-            <h2>Welcome to Our Online Store</h2>
-            <p>Discover thousands of high-quality products at unbeatable prices</p>
-            <a href="#products" class="cta-button">Shop Now</a>
+            <button class="nav-link active" onclick="filterCategory('all')">All Products</button>
+            <button class="nav-link" onclick="filterCategory('women')">👗 Women</button>
+            <button class="nav-link" onclick="filterCategory('men')">👔 Men</button>
         </div>
     </div>
-    
+
     <div class="container">
-        <div class="stats">
-            <div class="stat">
-                <div class="stat-number">5K+</div>
-                <div class="stat-label">Products</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number">100K+</div>
-                <div class="stat-label">Happy Customers</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number">24/7</div>
-                <div class="stat-label">Support</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number">99.8%</div>
-                <div class="stat-label">Satisfaction Rate</div>
-            </div>
-        </div>
-        
-        <div class="features">
-            <div class="feature-card">
-                <div class="feature-icon">📦</div>
-                <h3>Free Shipping</h3>
-                <p>Get free shipping on all orders over $50</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">✅</div>
-                <h3>Quality Guaranteed</h3>
-                <p>100% authentic products with warranty</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">💳</div>
-                <h3>Secure Payment</h3>
-                <p>Encrypted payment processing for your safety</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">↩️</div>
-                <h3>Easy Returns</h3>
-                <p>30-day money-back guarantee on all items</p>
-            </div>
-        </div>
-        
-        <div class="products-section" id="products">
-            <h2>Featured Products</h2>
-            <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-image">📱</div>
-                    <div class="product-info">
-                        <h3>Smartphone</h3>
-                        <p>Latest model with advanced features</p>
-                        <div class="price">$599</div>
-                        <button class="add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-image">💻</div>
-                    <div class="product-info">
-                        <h3>Laptop</h3>
-                        <p>High-performance computing device</p>
-                        <div class="price">$999</div>
-                        <button class="add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-image">🎧</div>
-                    <div class="product-info">
-                        <h3>Headphones</h3>
-                        <p>Premium audio quality</p>
-                        <div class="price">$199</div>
-                        <button class="add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-image">⌚</div>
-                    <div class="product-info">
-                        <h3>Smartwatch</h3>
-                        <p>Track your fitness and lifestyle</p>
-                        <div class="price">$299</div>
-                        <button class="add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-image">📷</div>
-                    <div class="product-info">
-                        <h3>Camera</h3>
-                        <p>Professional grade photography</p>
-                        <div class="price">$799</div>
-                        <button class="add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-image">🎮</div>
-                    <div class="product-info">
-                        <h3>Gaming Console</h3>
-                        <p>Next-gen gaming experience</p>
-                        <div class="price">$499</div>
-                        <button class="add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
+        <div class="products-section">
+            <div class="section-title">👕 Trending Dresses & Clothing</div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be dynamically loaded here -->
             </div>
         </div>
     </div>
-    
+
     <footer>
-        <div class="container">
-            <p>&copy; 2025 E-Commerce Shop. All rights reserved.</p>
-            <p>Your trusted online shopping destination</p>
-        </div>
+        <p>&copy; 2024 Indian Fashion Store. All rights reserved. Delivering quality fashion to India.</p>
     </footer>
-    
+
     <script>
-        // Initialize cart from localStorage
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        
-        // Update cart count
-        function updateCartCount() {
-            const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-            // Store cart count in localStorage for display
-            localStorage.setItem('cartCount', cartCount);
-        }
-        
-        // Add to cart handler
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Get product details from the parent card
-                const productCard = this.closest('.product-card');
-                const title = productCard.querySelector('h3').textContent;
-                const priceText = productCard.querySelector('.price').textContent;
-                const price = parseFloat(priceText.replace('$', ''));
-                
-                // Check if product already in cart
-                const existingItem = cart.find(item => item.title === title);
-                
-                if (existingItem) {
-                    existingItem.quantity += 1;
-                } else {
-                    cart.push({
-                        title: title,
-                        price: price,
-                        quantity: 1
-                    });
-                }
-                
-                // Save to localStorage
-                localStorage.setItem('cart', JSON.stringify(cart));
-                updateCartCount();
-                
-                // Show feedback
-                this.textContent = '✓ Added';
-                this.style.background = '#27ae60';
-                
-                setTimeout(() => {
-                    this.textContent = 'Add to Cart';
-                    this.style.background = '';
-                }, 2000);
-                
-                console.log('Cart updated:', cart);
+        // Indian clothing products with prices in INR
+        const products = [
+            {
+                id: 1,
+                title: "Cotton Saree",
+                category: "women",
+                price: 1299,
+                emoji: "🔘",
+                desc: "Traditional cotton saree with beautiful patterns"
+            },
+            {
+                id: 2,
+                title: "Silk Kurti",
+                category: "women",
+                price: 899,
+                emoji: "👗",
+                desc: "Elegant silk kurti perfect for casual wear"
+            },
+            {
+                id: 3,
+                title: "Designer Salwar Suit",
+                category: "women",
+                price: 1599,
+                emoji: "👘",
+                desc: "Stunning designer salwar suit with embroidery"
+            },
+            {
+                id: 4,
+                title: "Cotton Kurta",
+                category: "women",
+                price: 749,
+                emoji: "🪑",
+                desc: "Comfortable cotton kurta for everyday wear"
+            },
+            {
+                id: 5,
+                title: "Ethnic Lehenga",
+                category: "women",
+                price: 2499,
+                emoji: "👘",
+                desc: "Beautiful lehenga for weddings and celebrations"
+            },
+            {
+                id: 6,
+                title: "Printed Saree",
+                category: "women",
+                price: 1099,
+                emoji: "🔘",
+                desc: "Colorful printed saree for casual occasions"
+            },
+            {
+                id: 7,
+                title: "Cotton Dhoti",
+                category: "men",
+                price: 599,
+                emoji: "👕",
+                desc: "Traditional cotton dhoti for all occasions"
+            },
+            {
+                id: 8,
+                title: "Linen Kurta",
+                category: "men",
+                price: 699,
+                emoji: "👘",
+                desc: "Premium linen kurta for summer comfort"
+            },
+            {
+                id: 9,
+                title: "Silk Sherwani",
+                category: "men",
+                price: 4999,
+                emoji: "💪",
+                desc: "Elegant sherwani for weddings and formal events"
+            },
+            {
+                id: 10,
+                title: "Cotton Angavastram",
+                category: "men",
+                price: 499,
+                emoji: "👗",
+                desc: "Traditional angavastram for cultural wear"
+            },
+            {
+                id: 11,
+                title: "Designer Lehenga Choli",
+                category: "women",
+                price: 3499,
+                emoji: "👘",
+                desc: "Premium designer lehenga choli with stone work"
+            },
+            {
+                id: 12,
+                title: "Benarasi Saree",
+                category: "women",
+                price: 2999,
+                emoji: "🔘",
+                desc: "Authentic Benarasi saree with gold zari work"
+            }
+        ];
+
+        let currentCategory = 'all';
+
+        // Display products
+        function displayProducts(category = 'all') {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+            
+            const filtered = category === 'all' 
+                ? products 
+                : products.filter(p => p.category === category);
+            
+            filtered.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="product-image">${product.emoji}</div>
+                    <div class="product-info">
+                        <div class="product-title">${product.title}</div>
+                        <div class="product-desc">${product.desc}</div>
+                        <div class="price-section">
+                            <span class="price">₹${product.price}</span>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(${product.id})">Add to Cart</button>
+                    </div>
+                `;
+                grid.appendChild(card);
             });
+        }
+
+        // Filter by category
+        function filterCategory(category) {
+            currentCategory = category;
+            displayProducts(category);
+            
+            // Update active button
+            document.querySelectorAll('.nav-link').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Add to cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    title: product.title,
+                    price: product.price,
+                    quantity: 1
+                });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert('🙋 ' + product.title + ' added to cart!');
+        }
+
+        // Display all products on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            displayProducts();
         });
-        
-        // Initialize on page load
-        updateCartCount();
     </script>
 </body>
 </html>
