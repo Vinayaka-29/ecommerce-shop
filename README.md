@@ -2,6 +2,13 @@
 
 A full-featured Django e-commerce platform with product catalog, shopping cart, user authentication, and order management.
 
+## 🌐 Live Demo
+
+**Website**: [https://vinayaka-29.github.io/ecommerce-shop/](https://vinayaka-29.github.io/ecommerce-shop/)
+
+> **Note**: GitHub Pages hosts static files. For full Django functionality with database and cart features, deploy to PythonAnywhere or Render (see Deployment section below).
+
+
 ## 🌟 Features
 
 - 🛋️ **Product Catalog** - Browse products with images, descriptions, and prices
