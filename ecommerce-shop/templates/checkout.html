@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - E-Commerce Shop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .checkout-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+
+        .checkout-form {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .payment-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .payment-option {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .payment-option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .payment-option input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .payment-option.selected {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .order-summary {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .order-summary h3 {
+            color: #333;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .order-item:last-of-type {
+            border-bottom: 2px solid #667eea;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .summary-row span:last-child {
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .summary-row.total {
+            padding-top: 10px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .summary-row.total span:last-child {
+            color: #764ba2;
+            font-size: 20px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .back-link:hover {
+            color: #764ba2;
+        }
+
+        @media (max-width: 768px) {
+            .checkout-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .order-summary {
+                position: static;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🛒 Checkout</h1>
+    </header>
+
+    <div class="container">
+        <a href="/cart.html" class="back-link">← Back to Cart</a>
+        <div class="checkout-wrapper">
+            <form class="checkout-form" id="checkoutForm">
+                <div class="form-section">
+                    <h3>📍 Delivery Address</h3>
+                    <div class="form-group">
+                        <label for="fullname">Full Name *</label>
+                        <input type="text" id="fullname" name="fullname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile">Mobile Number *</label>
+                        <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" placeholder="10-digit mobile number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Street Address *</label>
+                        <input type="text" id="address" name="address" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City *</label>
+                            <input type="text" id="city" name="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State *</label>
+                            <input type="text" id="state" name="state" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pincode">Pincode *</label>
+                            <input type="text" id="pincode" name="pincode" pattern="[0-9]{6}" placeholder="6-digit pincode" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country *</label>
+                            <input type="text" id="country" name="country" value="India" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>💳 Payment Method</h3>
+                    <div class="payment-options">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="cod" checked>
+                            <div>💵 Cash on Delivery</div>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="upi">
+                            <div>📱 UPI</div>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="card">
+                            <div>💳 Credit/Debit Card</div>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="checkout-btn">Place Order</button>
+            </form>
+
+            <div class="order-summary" id="orderSummary">
+                <h3>Order Summary</h3>
+                <div id="orderItems"></div>
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">₹0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping:</span>
+                    <span>₹50.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax (18% GST):</span>
+                    <span id="tax">₹0.00</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total:</span>
+                    <span id="total">₹0.00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load and display order summary
+        function displayOrderSummary() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const orderItemsDiv = document.getElementById('orderItems');
+            let itemsHtml = '';
+            let subtotal = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                itemsHtml += `
+                    <div class="order-item">
+                        <span>${item.title} x${item.quantity}</span>
+                        <span>₹${itemTotal.toFixed(2)}</span>
+                    </div>
+                `;
+            });
+
+            orderItemsDiv.innerHTML = itemsHtml;
+
+            const tax = subtotal * 0.18;
+            const shipping = 50;
+            const total = subtotal + tax + shipping;
+
+            document.getElementById('subtotal').textContent = '₹' + subtotal.toFixed(2);
+            document.getElementById('tax').textContent = '₹' + tax.toFixed(2);
+            document.getElementById('total').textContent = '₹' + total.toFixed(2);
+        }
+
+        // Payment option selection
+        document.querySelectorAll('.payment-option input').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.querySelectorAll('.payment-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                this.closest('.payment-option').classList.add('selected');
+            });
+        });
+
+        // Form submission
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                fullname: document.getElementById('fullname').value,
+                email: document.getElementById('email').value,
+                mobile: document.getElementById('mobile').value,
+                address: document.getElementById('address').value,
+                city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
+                pincode: document.getElementById('pincode').value,
+                country: document.getElementById('country').value,
+                payment: document.querySelector('input[name="payment"]:checked').value
+            };
+
+            // Store order data
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const order = {
+                id: 'ORD-' + Date.now(),
+                date: new Date().toLocaleString('en-IN'),
+                customer: formData,
+                items: cart,
+                subtotal: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                tax: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) * 0.18,
+                shipping: 50
+            };
+            order.total = order.subtotal + order.tax + order.shipping;
+
+            // Save order to localStorage
+            localStorage.setItem('lastOrder', JSON.stringify(order));
+            
+            // Clear cart
+            localStorage.removeItem('cart');
+            
+            // Redirect to order confirmation
+            window.location.href = '/bill.html';
+        });
+
+        // Display order summary on page load
+        displayOrderSummary();
+    </script>
+</body>
+</html>
