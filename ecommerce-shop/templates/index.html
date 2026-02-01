@@ -357,5 +357,61 @@
             <p>Your trusted online shopping destination</p>
         </div>
     </footer>
+    
+    <script>
+        // Initialize cart from localStorage
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        // Update cart count
+        function updateCartCount() {
+            const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            // Store cart count in localStorage for display
+            localStorage.setItem('cartCount', cartCount);
+        }
+        
+        // Add to cart handler
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Get product details from the parent card
+                const productCard = this.closest('.product-card');
+                const title = productCard.querySelector('h3').textContent;
+                const priceText = productCard.querySelector('.price').textContent;
+                const price = parseFloat(priceText.replace('$', ''));
+                
+                // Check if product already in cart
+                const existingItem = cart.find(item => item.title === title);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        title: title,
+                        price: price,
+                        quantity: 1
+                    });
+                }
+                
+                // Save to localStorage
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCount();
+                
+                // Show feedback
+                this.textContent = '✓ Added';
+                this.style.background = '#27ae60';
+                
+                setTimeout(() => {
+                    this.textContent = 'Add to Cart';
+                    this.style.background = '';
+                }, 2000);
+                
+                console.log('Cart updated:', cart);
+            });
+        });
+        
+        // Initialize on page load
+        updateCartCount();
+    </script>
 </body>
 </html>
