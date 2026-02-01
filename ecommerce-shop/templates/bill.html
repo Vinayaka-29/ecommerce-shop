@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Bill - E-Commerce Shop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .bill-wrapper {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .bill-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .bill-header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .bill-header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .bill-content {
+            padding: 40px 30px;
+        }
+
+        .bill-section {
+            margin-bottom: 30px;
+        }
+
+        .bill-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .order-id {
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .order-id-label {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .order-id-value {
+            color: #333;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .customer-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .info-block h4 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .info-block p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 5px;
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        .items-table thead {
+            background: #f0f4ff;
+        }
+
+        .items-table th {
+            color: #667eea;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .items-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            color: #333;
+        }
+
+        .items-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .summary-section {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+
+        .summary-box {
+            width: 300px;
+            background: #f0f4ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        .summary-row.total {
+            border-top: 2px solid #667eea;
+            padding-top: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #764ba2;
+        }
+
+        .summary-label {
+            font-weight: 500;
+        }
+
+        .summary-value {
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .bill-footer {
+            background: #f9f9f9;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #eee;
+        }
+
+        .thank-you {
+            font-size: 18px;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .thank-you-text {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .customer-info {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .action-buttons {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="bill-wrapper">
+            <div class="bill-header">
+                <h1>🌟 Order Confirmed!</h1>
+                <p>Thank you for your purchase</p>
+            </div>
+
+            <div class="bill-content">
+                <div class="bill-section">
+                    <div class="order-id">
+                        <div class="order-id-label">ORDER ID</div>
+                        <div class="order-id-value" id="orderId">ORD-1234567890</div>
+                    </div>
+                </div>
+
+                <div class="bill-section">
+                    <h3>📝 Delivery Details</h3>
+                    <div class="customer-info">
+                        <div class="info-block">
+                            <h4>Shipping Address</h4>
+                            <p id="customerName">John Doe</p>
+                            <p id="customerAddress">123 Main St</p>
+                            <p id="customerCityState">Mumbai, Maharashtra 400001</p>
+                            <p id="customerCountry">India</p>
+                        </div>
+                        <div class="info-block">
+                            <h4>Contact Information</h4>
+                            <p><strong>Email:</strong> <span id="customerEmail">john@example.com</span></p>
+                            <p><strong>Mobile:</strong> <span id="customerMobile">+91-9876543210</span></p>
+                            <p><strong>Payment Method:</strong> <span id="paymentMethod">Cash on Delivery</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bill-section">
+                    <h3>🛍️ Order Items</h3>
+                    <table class="items-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemsList">
+                            <tr>
+                                <td colspan="4" style="text-align: center; color: #999;">Loading items...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="summary-section">
+                    <div class="summary-box">
+                        <div class="summary-row">
+                            <span class="summary-label">Subtotal:</span>
+                            <span class="summary-value" id="summarySubtotal">₹0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Shipping:</span>
+                            <span class="summary-value">₹50.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Tax (18% GST):</span>
+                            <span class="summary-value" id="summaryTax">₹0.00</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>TOTAL AMOUNT:</span>
+                            <span id="summaryTotal">₹0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bill-footer">
+                <div class="thank-you">🙋 Thank You for Shopping!</div>
+                <div class="thank-you-text">
+                    Your order has been confirmed. You will receive a confirmation email shortly.
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="window.print()">Print Bill</button>
+                    <button class="btn btn-secondary" onclick="window.location.href='/'">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load order data from localStorage
+        function loadOrderData() {
+            const order = JSON.parse(localStorage.getItem('lastOrder'));
+            
+            if (!order) {
+                document.querySelector('.bill-content').innerHTML = '<p style="text-align: center; color: red;">No order found. <a href="/">Go back to shop</a></p>';
+                return;
+            }
+
+            // Set order ID
+            document.getElementById('orderId').textContent = order.id;
+
+            // Set customer details
+            const customer = order.customer;
+            document.getElementById('customerName').textContent = customer.fullname;
+            document.getElementById('customerAddress').textContent = customer.address;
+            document.getElementById('customerCityState').textContent = customer.city + ', ' + customer.state + ' ' + customer.pincode;
+            document.getElementById('customerCountry').textContent = customer.country;
+            document.getElementById('customerEmail').textContent = customer.email;
+            document.getElementById('customerMobile').textContent = customer.mobile;
+            document.getElementById('paymentMethod').textContent = customer.payment === 'cod' ? 'Cash on Delivery' : customer.payment === 'upi' ? 'UPI' : 'Credit/Debit Card';
+
+            // Set items
+            const itemsList = document.getElementById('itemsList');
+            itemsList.innerHTML = '';
+            order.items.forEach(item => {
+                const row = document.createElement('tr');
+                const itemTotal = item.price * item.quantity;
+                row.innerHTML = `
+                    <td>${item.title}</td>
+                    <td>${item.quantity}</td>
+                    <td>₹${item.price.toFixed(2)}</td>
+                    <td>₹${itemTotal.toFixed(2)}</td>
+                `;
+                itemsList.appendChild(row);
+            });
+
+            // Set summary
+            document.getElementById('summarySubtotal').textContent = '₹' + order.subtotal.toFixed(2);
+            document.getElementById('summaryTax').textContent = '₹' + order.tax.toFixed(2);
+            document.getElementById('summaryTotal').textContent = '₹' + order.total.toFixed(2);
+        }
+
+        // Load order on page load
+        loadOrderData();
+    </script>
+</body>
+</html>
