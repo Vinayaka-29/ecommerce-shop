@@ -1,6 +1,6 @@
 # E-Commerce Shop 🛒
 
-A full-featured Django e-commerce platform (Amazon mini version) with product catalog, shopping cart, user authentication, and order management.
+A full-featured Django e-commerce platform with product catalog, shopping cart, user authentication, and order management.
 
 ## 🌟 Features
 
