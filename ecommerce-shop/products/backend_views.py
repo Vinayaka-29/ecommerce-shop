@@ -43,29 +43,9 @@ def admin_logout(request):
     Admin logout view
     """
     logout(request)
-    return redirect('admin_login')
+def admin_login(request):
+    return JsonResponse({'status': 'admin_login_test', 'message': 'Admin login endpoint working!'})
 
-
-# =======================
-# ADMIN DASHBOARD
-# =======================
-
-@login_required(login_url='admin_login')
-def admin_dashboard(request):
-    """
-    Main admin dashboard showing order statistics and recent orders
-    """
-    # Check if user is staff/admin
-    if not request.user.is_staff:
-        return redirect('admin_login')
-    
-    # Get statistics
-    total_orders = Order.objects.count()
-    pending_orders = Order.objects.filter(status='pending').count()
-    confirmed_orders = Order.objects.filter(status='confirmed').count()
-    shipped_orders = Order.objects.filter(status='shipped').count()
-    delivered_orders = Order.objects.filter(status='delivered').count()
-    cancelled_orders = Order.objects.filter(status='cancelled').count()
     
     # Calculate total revenue
     total_revenue = Order.objects.aggregate(Sum('total_amount'))['total_amount__sum'] or 0
