@@ -5,12 +5,15 @@ from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from products import backend_views
 from products import api
+from django.http import JsonResponse
+
+def home_view(request):
+    return JsonResponse({'message': 'Welcome to E-Commerce Store API', 'status': 'online', 'version': '1.0'})
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-        path('', TemplateView.as_view(template_name='index.html'), name='home'),
-        path('cart.html', TemplateView.as_view(template_name='cart.html'), name='cart'),
+    path('', home_view, name='home'),        path('cart.html', TemplateView.as_view(template_name='cart.html'), name='cart'),
     path('checkout.html', TemplateView.as_view(template_name='checkout.html'), name='checkout'),
     path('bill.html', TemplateView.as_view(template_name='bill.html'), name='bill'),
         # Admin Backend URLs
