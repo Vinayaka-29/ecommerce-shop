@@ -7,8 +7,6 @@ from products import backend_views
 from products import api
 from django.http import JsonResponse
 
-def home_view(request):
-    return JsonResponse({'message': 'Welcome to E-Commerce Store API', 'status': 'online', 'version': '1.0'})
 
 urlpatterns = [
     path('admin/', admin.site.urls),
