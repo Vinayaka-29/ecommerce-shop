@@ -18,36 +18,57 @@ from django.db.models import Q, Sum
 @require_http_methods(["GET", "POST"])
 def admin_login(request):
     """
-    Admin login page and authentication
+    Admin login API endpoint
     Default credentials: username=vinayaka29, password=admin123
     """
     if request.user.is_authenticated and request.user.is_staff:
-        return redirect('admin_dashboard')
+        return JsonResponse({'success': True, 'message': 'Already logged in', 'username': request.user.username})
     
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+        try:
+            data = json.loads(request.body)
+            username = data.get('username')
+            password = data.get('password')
+        except:
+            username = request.POST.get('username')
+            password = request.POST.get('password')
         
         user = authenticate(request, username=username, password=password)
         
         if user is not None and user.is_staff:
             login(request, user)
-            return redirect('admin_dashboard')
-        else:
-            return render(request, 'admin_login.html', {
-                'error': 'Invalid username or password. Access for admin users only.'
+            return JsonResponse({
+                'success': True,
+                'message': 'Login successful',
+                'username': user.username,
+                'user_id': user.id
             })
+        else:
+            return JsonResponse({
+                'success': False,
+                'message': 'Invalid credentials or not an admin user',
+                'error': 'Authentication failed'
+            }, status=401)
     
-    return render(request, 'admin_login.html')
-
+    # For GET request, return login instructions
+    return JsonResponse({
+        'message': 'Admin Login API',
+        'instructions': 'Send POST request with username and password',
+        'default_credentials': {'username': 'vinayaka29', 'password': 'admin123'},
+        'endpoint': '/admin/login/',
+        'method': 'POST',
+        'example': {
+            'username': 'vinayaka29',
+            'password': 'admin123'
+        }
+    })
 
 def admin_logout(request):
     """
     Admin logout view
     """
     logout(request)
-    return redirect('admin_login')
-
+    return JsonResponse({'success': True, 'message': 'Logged out successfully'})
 
 # =======================
 # ADMIN DASHBOARD
@@ -56,11 +77,10 @@ def admin_logout(request):
 @login_required(login_url='admin_login')
 def admin_dashboard(request):
     """
-    Main admin dashboard showing order statistics and recent orders
+    Main admin dashboard API returning order statistics
     """
-    # Check if user is staff/admin
     if not request.user.is_staff:
-        return redirect('admin_login')
+        return JsonResponse({'success': False, 'error': 'Unauthorized - Admin access required'}, status=403)
     
     # Get statistics
     total_orders = Order.objects.count()
@@ -74,22 +94,22 @@ def admin_dashboard(request):
     total_revenue = Order.objects.aggregate(Sum('total_amount'))['total_amount__sum'] or 0
     
     # Get recent orders
-    recent_orders = Order.objects.all().order_by('-created_at')[:10]
+    recent_orders = list(Order.objects.all().order_by('-created_at')[:10].values())
     
-    context = {
-        'total_orders': total_orders,
-        'pending_orders': pending_orders,
-        'confirmed_orders': confirmed_orders,
-        'shipped_orders': shipped_orders,
-        'delivered_orders': delivered_orders,
-        'cancelled_orders': cancelled_orders,
-        'total_revenue': total_revenue,
-        'recent_orders': recent_orders,
-        'username': request.user.username
-    }
-    
-    return render(request, 'admin_dashboard.html', context)
-
+    return JsonResponse({
+        'success': True,
+        'admin_dashboard': {
+            'total_orders': total_orders,
+            'pending_orders': pending_orders,
+            'confirmed_orders': confirmed_orders,
+            'shipped_orders': shipped_orders,
+            'delivered_orders': delivered_orders,
+            'cancelled_orders': cancelled_orders,
+            'total_revenue': float(total_revenue),
+            'recent_orders': recent_orders,
+            'username': request.user.username
+        }
+    })
 
 # =======================
 # ORDER MANAGEMENT
@@ -101,7 +121,7 @@ def view_all_orders(request):
     View all orders with filtering and search capabilities
     """
     if not request.user.is_staff:
-        return redirect('admin_login')
+        return JsonResponse({'success': False, 'error': 'Unauthorized'}, status=403)
     
     orders = Order.objects.all().order_by('-created_at')
     
@@ -125,15 +145,18 @@ def view_all_orders(request):
             Q(customer_phone__icontains=search_query)
         )
     
-    context = {
-        'orders': orders,
-        'status_filter': status_filter,
-        'payment_filter': payment_filter,
-        'search_query': search_query,
-    }
+    orders_data = list(orders.values())
     
-    return render(request, 'view_orders.html', context)
-
+    return JsonResponse({
+        'success': True,
+        'total_count': len(orders_data),
+        'orders': orders_data,
+        'filters': {
+            'status': status_filter,
+            'payment': payment_filter,
+            'search': search_query
+        }
+    })
 
 @login_required(login_url='admin_login')
 def view_order_detail(request, order_id):
@@ -141,34 +164,54 @@ def view_order_detail(request, order_id):
     View detailed information about a specific order
     """
     if not request.user.is_staff:
-        return redirect('admin_login')
+        return JsonResponse({'success': False, 'error': 'Unauthorized'}, status=403)
     
     try:
         order = Order.objects.get(order_id=order_id)
-        items = order.items.all()
+        items = list(order.items.all().values())
         
-        context = {
-            'order': order,
-            'items': items,
+        order_data = {
+            'order_id': order.order_id,
+            'customer_name': order.customer_name,
+            'customer_email': order.customer_email,
+            'customer_phone': order.customer_phone,
+            'customer_address': order.customer_address,
+            'customer_city': order.customer_city,
+            'customer_state': order.customer_state,
+            'customer_pincode': order.customer_pincode,
+            'customer_country': order.customer_country,
+            'total_amount': float(order.total_amount),
+            'payment_method': order.payment_method,
+            'status': order.status,
+            'created_at': order.created_at.isoformat(),
+            'updated_at': order.updated_at.isoformat(),
+            'items': items
         }
         
-        return render(request, 'order_detail.html', context)
+        return JsonResponse({
+            'success': True,
+            'order': order_data
+        })
     except Order.DoesNotExist:
-        return render(request, 'order_not_found.html', {'order_id': order_id}, status=404)
-
+        return JsonResponse({'success': False, 'error': 'Order not found'}, status=404)
 
 @login_required(login_url='admin_login')
 @require_http_methods(["POST"])
 def update_order_status(request, order_id):
     """
-    Update order status via dashboard
+    Update order status via API
     """
     if not request.user.is_staff:
         return JsonResponse({'success': False, 'error': 'Unauthorized'}, status=403)
     
     try:
         order = Order.objects.get(order_id=order_id)
-        new_status = request.POST.get('status')
+        
+        try:
+            data = json.loads(request.body)
+            new_status = data.get('status')
+        except:
+            new_status = request.POST.get('status')
         
         valid_statuses = ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled']
         if new_status not in valid_statuses:
@@ -186,7 +229,6 @@ def update_order_status(request, order_id):
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)}, status=500)
 
-
 # =======================
 # ADMIN REPORTS
 # =======================
@@ -194,10 +236,10 @@ def update_order_status(request, order_id):
 @login_required(login_url='admin_login')
 def reports(request):
     """
-    Admin reports and analytics page
+    Admin reports and analytics API
     """
     if not request.user.is_staff:
-        return redirect('admin_login')
+        return JsonResponse({'success': False, 'error': 'Unauthorized'}, status=403)
     
     # Overall statistics
     total_orders = Order.objects.count()
@@ -205,29 +247,29 @@ def reports(request):
     
     # Status breakdown
     status_breakdown = {}
-    for status, label in Order.ORDER_STATUS_CHOICES:
+    for status in ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled']:
         status_breakdown[status] = Order.objects.filter(status=status).count()
     
     # Payment method breakdown
     payment_breakdown = {}
-    for method, label in Order.PAYMENT_METHOD_CHOICES:
+    for method in ['credit_card', 'debit_card', 'paypal', 'upi', 'net_banking']:
         payment_breakdown[method] = Order.objects.filter(payment_method=method).count()
     
     # Top selling products
-    top_products = OrderItem.objects.values('product__name').annotate(
+    top_products = list(OrderItem.objects.values('product__name').annotate(
         total_quantity=Sum('quantity')
-    ).order_by('-total_quantity')[:5]
+    ).order_by('-total_quantity')[:5])
     
-    context = {
-        'total_orders': total_orders,
-        'total_revenue': total_revenue,
-        'status_breakdown': status_breakdown,
-        'payment_breakdown': payment_breakdown,
-        'top_products': top_products,
-    }
-    
-    return render(request, 'reports.html', context)
-
+    return JsonResponse({
+        'success': True,
+        'reports': {
+            'total_orders': total_orders,
+            'total_revenue': float(total_revenue),
+            'status_breakdown': status_breakdown,
+            'payment_breakdown': payment_breakdown,
+            'top_products': top_products
+        }
+    })
 
 # =======================
 # EXPORT DATA
@@ -267,7 +309,6 @@ def export_orders_csv(request):
         ])
     
     return response
-
 
 @login_required(login_url='admin_login')
 def export_orders_json(request):
