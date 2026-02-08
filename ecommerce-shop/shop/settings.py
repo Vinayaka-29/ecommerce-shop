@@ -1,13 +1,18 @@
 import os
 from pathlib import Path
 
+# --------------------------------------------------
+# BASE
+# --------------------------------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # --------------------------------------------------
 # SECURITY
 # --------------------------------------------------
 SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-dev-key")
+
 DEBUG = os.environ.get("DEBUG", "False") == "True"
+
 ALLOWED_HOSTS = ["*", ".onrender.com"]
 
 # --------------------------------------------------
@@ -20,6 +25,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
     "products",
 ]
 
@@ -38,23 +44,23 @@ MIDDLEWARE = [
 ]
 
 # --------------------------------------------------
-# URLS / WSGI
+# URL / WSGI
 # --------------------------------------------------
 ROOT_URLCONF = "shop.urls"
 WSGI_APPLICATION = "shop.wsgi.application"
 
 # --------------------------------------------------
-# TEMPLATES  ✅ FIXED
+# TEMPLATES  ✅ THIS FIXES 500 ERROR
 # --------------------------------------------------
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],              # ✅ IMPORTANT: leave EMPTY
-        "APP_DIRS": True,        # ✅ REQUIRED for admin
+        "DIRS": [BASE_DIR / "templates"],   # 🔥 REQUIRED
+        "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
-                "django.template.context_processors.request",  # ✅ REQUIRED
+                "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
             ],
@@ -83,7 +89,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # --------------------------------------------------
-# I18N
+# INTERNATIONALIZATION
 # --------------------------------------------------
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
@@ -91,12 +97,16 @@ USE_I18N = True
 USE_TZ = True
 
 # --------------------------------------------------
-# STATIC / MEDIA
+# STATIC FILES
 # --------------------------------------------------
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
+# --------------------------------------------------
+# MEDIA FILES
+# --------------------------------------------------
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
