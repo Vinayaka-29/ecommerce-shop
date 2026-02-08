@@ -6,6 +6,7 @@ from django.views.generic import TemplateView
 
 from products import backend_views
 from products import api
+from products.views import product_list   # ✅ ADD THIS
 
 
 urlpatterns = [
@@ -14,6 +15,7 @@ urlpatterns = [
 
     # Website pages
     path('', TemplateView.as_view(template_name='index.html'), name='home'),
+    path('products/', product_list, name='products'),  # ✅ THIS WAS MISSING
     path('cart.html', TemplateView.as_view(template_name='cart.html'), name='cart'),
     path('checkout.html', TemplateView.as_view(template_name='checkout.html'), name='checkout'),
     path('bill.html', TemplateView.as_view(template_name='bill.html'), name='bill'),
@@ -34,22 +36,11 @@ urlpatterns = [
     # API Endpoints
     path('api/orders/', api.get_all_orders, name='api_get_all_orders'),
     path('api/orders/<str:order_id>/', api.get_order_by_id, name='api_get_order_detail'),
-    path(
-        'api/orders/status/<str:status>/',
-        api.get_orders_by_status,
-        name='api_get_orders_by_status'
-    ),
-    path(
-        'api/orders/<str:order_id>/update-status/',
-        api.update_order_status,
-        name='api_update_order_status'
-    ),
-    path(
-        'api/orders/statistics/',
-        api.get_order_statistics,
-        name='api_get_statistics'
-    ),
+    path('api/orders/status/<str:status>/', api.get_orders_by_status, name='api_get_orders_by_status'),
+    path('api/orders/<str:order_id>/update-status/', api.update_order_status, name='api_update_order_status'),
+    path('api/orders/statistics/', api.get_order_statistics, name='api_get_statistics'),
 ]
 
-# Static files (for production + render)
+# Static + Media files (Render / production)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
