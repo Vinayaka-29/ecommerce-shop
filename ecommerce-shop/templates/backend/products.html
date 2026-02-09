@@ -1,1 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Products</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
 
+<h2>Products</h2>
+
+<a href="/backend/products/add/">➕ Add Product</a>
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Price</th>
+    </tr>
+
+    {% for p in products %}
+    <tr>
+        <td><img src="{{ p.image.url }}" width="80"></td>
+        <td>{{ p.name }}</td>
+        <td>₹{{ p.price }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
